@@ -245,7 +245,7 @@ REPAY () { # REPAY a loan sequence
 BORROW () { # BORROW money from the loan shark
     HUD
     read -p "HOW MUCH TO BORROW? "
-    if [[ $REPLY = 0 ]]; then
+    if [ $REPLY -le 0]; then
         STASH
     elif [[ $(($REPLY+DEBT)) -le $MAXLOAN ]]; then
         let DEBT=DEBT+REPLY
@@ -300,7 +300,7 @@ STASHING () { # Stash product type selector
 STASHDEPOSIT () { # stashing arithmetic and logic
     HUD
     read -p "HOW MUCH $1 DO YOU WANT TO STASH? "
-            if [[ $REPLY = 0 ]]; then
+            if [[ $REPLY -le 0 ]]; then
                 echo
                 echo
             elif [[ $REPLY -le T$1 ]] && [[ $REPLY -gt 0 ]]; then
@@ -446,7 +446,7 @@ BUYDRUG () {
     TPRICE=${TINYNAME}PRICE
     echo "YOU CAN AFFORD ( ${!TAFFORD} )"
     read -p "HOW MUCH $1 DO YOU WANT TO BUY? "
-            if [[ $REPLY = 0 ]]; then
+            if [[ $REPLY -le 0 ]]; then
                 echo
                 MAINMENU
             elif [[ $REPLY -le ${!TAFFORD} ]] && [[ $REPLY -gt 0 ]] && [[ $((HOLD-REPLY)) -ge 0 ]]; then
